@@ -91,3 +91,4 @@ typings/
 # Electron-Forge
 out/
 dist/linux-unpacked/resources/app.asar
+*.asar
