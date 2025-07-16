@@ -1,0 +1,129 @@
+QualityTracker Documentation
+==========================
+
+Table of Contents
+-----------------
+1. Overview
+2. Prerequisites
+3. Building & Running (All Platforms)
+4. Platform-Specific Build & Installer Output
+   - Linux
+   - Windows
+   - macOS
+5. Troubleshooting
+6. Advanced Build Options
+7. Contact & License
+
+----------------------------------------
+
+1. Overview
+-----------
+QualityTracker is a cross-platform desktop app for project and process management. This document provides step-by-step instructions for building and running the app on Linux, Windows, and macOS.
+
+2. Prerequisites
+----------------
+- Node.js (v18 or newer recommended): https://nodejs.org/
+- npm (comes with Node.js)
+- Git (for cloning the repository)
+- Platform-specific build tools:
+  - **Linux:**
+    - Debian/Ubuntu: `sudo apt install build-essential fakeroot dpkg rpm`
+    - Fedora/RHEL: `sudo dnf install @development-tools rpm-build`
+  - **Windows:**
+    - [Windows Build Tools](https://github.com/felixrieseberg/windows-build-tools) (install via npm if needed)
+    - Visual Studio Build Tools (for native modules)
+  - **macOS:**
+    - Xcode Command Line Tools: `xcode-select --install`
+    - Homebrew (recommended): https://brew.sh/
+
+3. Building & Running (All Platforms)
+-------------------------------------
+
+### 1. Clone the Repository
+```
+git clone https://github.com/hmjahid/QualityTracker.git
+cd QualityTracker
+```
+
+### 2. Install Dependencies
+```
+npm install
+```
+
+### 3. Build the Renderer
+```
+npx vite build
+```
+This will output the renderer files to the `dist/` directory.
+
+### 4. Run in Development Mode
+```
+npx electron .
+```
+This will launch the app using the built renderer files.
+
+### 5. Build Linux Installers (deb, rpm, AppImage)
+```
+npm run dist
+```
+Installers will be created in the `dist/` directory.
+
+4. Platform-Specific Build & Installer Output
+--------------------------------------------
+
+### Linux
+- **.deb (Debian/Ubuntu):**
+  - Output: `dist/*.deb`
+- **.rpm (Fedora/RHEL):**
+  - Output: `dist/*.rpm`
+- **.AppImage (Portable):**
+  - Output: `dist/*.AppImage`
+
+### Windows
+- **.exe Installer:**
+  - Build must be run on Windows for `.exe` output
+  - Use electron-builder: `electron-builder --win` or configure scripts as needed
+  - Output: `dist/*.exe`
+
+### macOS
+- **.dmg or .zip:**
+  - Build must be run on macOS for `.dmg` or `.zip` output
+  - Use electron-builder: `electron-builder --mac` or configure scripts as needed
+  - Output: `dist/*.dmg` or `dist/*.zip`
+
+5. Troubleshooting
+------------------
+- **RPM Packaging Error:**
+  - If you see `cp: cannot stat 'usr/*': No such file or directory`, try:
+    - Building on Fedora/RHEL with all `rpm-build` dependencies installed.
+    - Using [electron-installer-redhat](https://github.com/electron-userland/electron-installer-redhat) directly and adjusting the spec file.
+    - Using `.deb` or `.AppImage` for most Linux users.
+- **Missing Output Files:**
+  - Ensure you are building on the correct OS for your target installer (e.g., Windows for `.exe`, macOS for `.dmg`).
+  - Check for errors in the terminal during the build process.
+- **Dependency Issues:**
+  - Delete `node_modules` and `package-lock.json`, then run `npm install` again.
+- **Permission Issues:**
+  - Use `sudo` if necessary on Linux/macOS, but avoid running npm as root unless required.
+
+6. Advanced Build Options
+------------------------
+- **Build Only Renderer:**
+  - `npx vite build`
+- **Build Specific Linux Targets:**
+  - AppImage: `electron-builder --linux AppImage`
+  - DEB: `electron-builder --linux deb`
+  - RPM: `electron-builder --linux rpm`
+- **Build for Windows:**
+  - `electron-builder --win`
+- **Build for macOS:**
+  - `electron-builder --mac`
+- **Electron Builder:**
+  - You can use `electron-builder` directly for more advanced packaging options. See [Electron Builder docs](https://www.electron.build/).
+
+7. Contact & License
+--------------------
+- Developed by Md Jahid Hasan
+- Email: mdjahidhasan919@gmail.com
+- Website: https://hmjahid.netlify.app/
+- License: MIT 

@@ -1,0 +1,4 @@
+owner: hmjahid
+repo: QualityTracker
+provider: github
+updaterCacheDirName: qualitytracker-updater
