@@ -231,7 +231,7 @@ const SettingsPage = () => {
                               </Box>
                             ) :
                               <Box display="flex" alignItems="center" {...provided.dragHandleProps}>
-                                <span style={{ fontWeight: 700, fontSize: 24 }}>{type}</span>
+                                <span style={{ fontWeight: 700, fontSize: 28 }}>{type}</span>
                                 <IconButton size="small" onClick={() => { setEditingType(type); setEditingTypeName(type); }}><EditIcon /></IconButton>
                                 <IconButton size="small" onClick={() => handleDeleteType(type)}><DeleteIcon /></IconButton>
                               </Box>
@@ -294,7 +294,7 @@ const SettingsPage = () => {
                             ) : (
                               <ul style={{ paddingLeft: 20, listStyle: 'disc', display: 'flex', flexDirection: 'column', gap: 14 }}>
                                 {mandatorySteps[type].map((step, idx) => (
-                                  <li key={idx} style={{ fontSize: 22 }}>{step}</li>
+                                  <li key={idx} style={{ fontSize: 18 }}>{step}</li>
                                 ))}
                               </ul>
                             )}

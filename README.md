@@ -4,6 +4,14 @@
 
 QualityTracker helps teams track and manage all mandatory steps and processes for various project types, ensuring consistent quality and smooth project phase transitions.
 
+---
+
+## 🚨 Major Project Structure Change
+- **Now 100% JavaScript/JSX:** All TypeScript files and dependencies have been removed. The project is now pure JS/JSX for easier builds and maintenance.
+- **Build system:** Uses Vite for the renderer and Electron for the desktop shell.
+
+---
+
 ## Features
 - **Dashboard:** Dynamic work type cards (add/edit/delete, deadlines, progress)
 - **Step Management:** Add, edit, delete, reorder (drag-and-drop), and mark steps as complete. Mandatory steps are visually distinct.
@@ -17,6 +25,8 @@ QualityTracker helps teams track and manage all mandatory steps and processes fo
 - **Help:** Built-in instructions
 - **About:** Developer info and MIT license
 - **Data Persistence:** All data/settings are saved automatically
+
+---
 
 ## Getting Started
 
@@ -46,12 +56,18 @@ npm run dist
 ```
 Installers will be created in the `dist/` directory. See `documentation.txt` for details on output locations per platform.
 
+---
+
 ## Supported Platforms & Installers
 - **Linux:** `.deb` (Debian/Ubuntu), `.rpm` (Fedora/RHEL), `.AppImage` (portable)
 - **Windows & macOS:** See documentation.txt for packaging instructions
 
+---
+
 ## Troubleshooting
 - For packaging errors, missing output files, or advanced build options, see `documentation.txt`.
+
+---
 
 ## Contact & License
 - Developed by Md Jahid Hasan
