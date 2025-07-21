@@ -282,7 +282,7 @@ const SettingsPage = () => {
                                                             </Box>
                                                         ) :
                                                             <Box display="flex" alignItems="center" {...provided.dragHandleProps}>
-                                                                <span style={{ fontWeight: 600, fontSize: 18 }}>{type}</span>
+                                                                <span style={{ fontWeight: 700, fontSize: 24 }}>{type}</span>
                                                                 <IconButton size="small" onClick={() => { setEditingType(type); setEditingTypeName(type); }}><EditIcon /></IconButton>
                                                                 <IconButton size="small" onClick={() => handleDeleteType(type)}><DeleteIcon /></IconButton>
                                                             </Box>
@@ -302,11 +302,12 @@ const SettingsPage = () => {
                                                                                         style={{
                                                                                             display: 'flex',
                                                                                             alignItems: 'center',
-                                                                                            marginBottom: 8,
+                                                                                            marginBottom: 18,
                                                                                             background: snapshot.isDragging ? '#e3f2fd' : theme.palette.mode === 'dark' ? '#23272f' : '#f5f7fa',
                                                                                             borderRadius: 8,
                                                                                             boxShadow: snapshot.isDragging ? '0 2px 8px rgba(25, 118, 210, 0.15)' : '0 1px 3px rgba(0,0,0,0.04)',
-                                                                                            padding: '8px 12px',
+                                                                                            padding: '12px 18px',
+                                                                                            fontSize: 18,
                                                                                             transition: 'background 0.2s, box-shadow 0.2s',
                                                                                             ...provided.draggableProps.style,
                                                                                         }}

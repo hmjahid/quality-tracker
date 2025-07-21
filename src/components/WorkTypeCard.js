@@ -53,7 +53,7 @@ const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, on
                                 borderColor: theme.palette.primary.main,
                             },
                         },
-                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer', display: 'block', paddingBottom: 16 }, children: workType.title })), subheader: _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }, children: [
+                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer', display: 'block', paddingBottom: 16, fontSize: 28, fontWeight: 700 }, children: workType.title })), subheader: _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }, children: [
             _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Task Start Date:", _jsx(TextField, { type: "date", size: "medium", value: workType.startDate || '', onChange: e => onEdit(workType.id, 'startDate', e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
                         ml: 1,
                         fontSize: 16,
