@@ -25,6 +25,18 @@ const App = () => {
         default:
             content = null;
     }
-    return (_jsxs(SettingsProvider, { children: [_jsxs("div", { style: { display: 'flex', height: '100vh', minHeight: 0, margin: '0 auto', marginLeft: '15%' }, children: [_jsx(Navigation, { currentPage: currentPage, onNavigate: setCurrentPage }), _jsx("main", { style: { flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: 0, padding: 32, overflow: 'auto' }, children: _jsx("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0 }, children: content }) })] })] }));
+    return (_jsx(SettingsProvider, { children: _jsxs("div", { style: { display: 'flex', height: '100vh', marginLeft: '15%', minHeight: 0, boxSizing: 'border-box' }, children: [_jsx(Navigation, { currentPage: currentPage, onNavigate: setCurrentPage }), _jsx("main", { style: {
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        minWidth: 0,
+                        minHeight: 0,
+                        padding: 32,
+                        overflow: 'auto',
+                        width: '80%',
+                        margin: '0 auto',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }, children: _jsx("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0, width: '100%' }, children: content }) })] }) }));
 };
 export default App;

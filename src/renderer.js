@@ -1,4 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+// Add browser fallback for window.electronAPI
+if (typeof window !== 'undefined' && !window.electronAPI) {
+    window.electronAPI = {
+        getStoreValue: async () => null,
+        setStoreValue: async () => { },
+        // Add other methods as needed for browser testing
+    };
+}
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';

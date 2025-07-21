@@ -11,6 +11,7 @@ import { useSettings } from '../SettingsContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 declare global {
   interface Window {
@@ -121,6 +122,17 @@ const MainPage: React.FC = () => {
     }));
   };
 
+  const handleCardDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination || source.index === destination.index) return;
+    setWorkTypes(prev => {
+      const arr = Array.from(prev);
+      const [removed] = arr.splice(source.index, 1);
+      arr.splice(destination.index, 0, removed);
+      return arr;
+    });
+  };
+
   if (typeof window.electronAPI === 'undefined') {
     return <Box display="flex" alignItems="center" justifyContent="center" height="100vh"><span style={{color: 'red'}}>Error: electronAPI is not available. Please run in Electron.</span></Box>;
   }
@@ -187,22 +199,42 @@ const MainPage: React.FC = () => {
           Add Work Type
         </Button>
       </Box>
-      <Box display="flex" flexWrap="wrap">
-        {workTypes.map(wt => (
-          <WorkTypeCard
-            key={wt.id}
-            workType={wt}
-            onEdit={handleEditWorkType}
-            onDelete={handleDeleteWorkType}
-            onStepToggle={handleStepToggle}
-            onStepEdit={handleStepEdit}
-            onStepDelete={handleStepDelete}
-            onAddStep={handleAddStep}
-            onDeadlineChange={handleDeadlineChange}
-            onReorderSteps={handleReorderSteps}
-          />
-        ))}
-      </Box>
+      <DragDropContext onDragEnd={handleCardDragEnd}>
+        <Droppable droppableId="workTypeCards" direction="horizontal">
+          {(provided) => (
+            <Box display="flex" flexWrap="wrap" ref={provided.innerRef} {...provided.droppableProps}>
+              {workTypes.map((wt, idx) => (
+                <Draggable key={wt.id} draggableId={wt.id} index={idx}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={{
+                        ...provided.draggableProps.style,
+                        opacity: snapshot.isDragging ? 0.7 : 1,
+                      }}
+                    >
+                      <WorkTypeCard
+                        workType={wt}
+                        onEdit={handleEditWorkType}
+                        onDelete={handleDeleteWorkType}
+                        onStepToggle={handleStepToggle}
+                        onStepEdit={handleStepEdit}
+                        onStepDelete={handleStepDelete}
+                        onAddStep={handleAddStep}
+                        onDeadlineChange={handleDeadlineChange}
+                        onReorderSteps={handleReorderSteps}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
     </Box>
   );
 };

@@ -11,7 +11,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { styled } from '@mui/material/styles';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useTheme } from '@mui/material/styles';
 const StepLabel = styled('span')(({ mandatory, theme }) => ({
     fontWeight: mandatory ? 'bold' : 'normal',
@@ -53,9 +53,11 @@ const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, on
                                 borderColor: theme.palette.primary.main,
                             },
                         },
-                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer' }, children: workType.title })), subheader: _jsx(TextField, { type: "date", size: "small", value: workType.deadline || '', onChange: e => onDeadlineChange(workType.id, e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
-                        mt: 1,
-                        input: { color: theme.palette.text.primary },
+                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer', display: 'block', paddingBottom: 16 }, children: workType.title })), subheader: _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }, children: [
+            _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Task Start Date:", _jsx(TextField, { type: "date", size: "medium", value: workType.startDate || '', onChange: e => onEdit(workType.id, 'startDate', e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
+                        ml: 1,
+                        fontSize: 16,
+                        input: { color: theme.palette.text.primary, fontSize: 16, fontWeight: 600 },
                         backgroundColor: theme.palette.background.paper,
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {
@@ -68,7 +70,25 @@ const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, on
                                 borderColor: theme.palette.primary.main,
                             },
                         },
-                    } }), action: _jsx(IconButton, { onClick: () => onDelete(workType.id), children: _jsx(DeleteIcon, {}) }) }), _jsxs(CardContent, { children: [_jsx(LinearProgress, { variant: "determinate", value: progress, sx: { mb: 2 } }), _jsx(Typography, { variant: "body2", color: allMandatoryComplete ? 'green' : 'orange', children: allMandatoryComplete ? 'All mandatory steps complete' : 'Mandatory steps incomplete' }), _jsx(DragDropContext, { onDragEnd: handleDragEnd, children: _jsx(Droppable, { droppableId: `droppable-${workType.id}`, children: (provided) => (_jsxs("ul", { ref: provided.innerRef, ...provided.droppableProps, style: { paddingLeft: 0, listStyle: 'none' }, children: [workType.steps.map((step, idx) => (_jsx(Draggable, { draggableId: step.id, index: idx, children: (provided, snapshot) => (_jsxs("li", { ref: provided.innerRef, ...provided.draggableProps, ...provided.dragHandleProps, style: {
+                    } })] }),
+            _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Deadline:", _jsx(TextField, { type: "date", size: "medium", value: workType.deadline || '', onChange: e => onDeadlineChange(workType.id, e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
+                        ml: 1,
+                        fontSize: 16,
+                        input: { color: theme.palette.text.primary, fontSize: 16, fontWeight: 600 },
+                        backgroundColor: theme.palette.background.paper,
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: theme.palette.divider,
+                            },
+                            '&:hover fieldset': {
+                                borderColor: theme.palette.primary.main,
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: theme.palette.primary.main,
+                            },
+                        },
+                    } })] })
+        ] }), action: _jsx(IconButton, { onClick: () => onDelete(workType.id), children: _jsx(DeleteIcon, {}) }) }), _jsxs(CardContent, { children: [_jsx(LinearProgress, { variant: "determinate", value: progress, sx: { mb: 2 } }), _jsx(Typography, { variant: "body2", color: allMandatoryComplete ? 'green' : 'orange', children: allMandatoryComplete ? 'All mandatory steps complete' : 'Mandatory steps incomplete' }), _jsx(DragDropContext, { onDragEnd: handleDragEnd, children: _jsx(Droppable, { droppableId: `droppable-${workType.id}`, children: (provided) => (_jsxs("ul", { ref: provided.innerRef, ...provided.droppableProps, style: { paddingLeft: 0, listStyle: 'none' }, children: [workType.steps.map((step, idx) => (_jsx(Draggable, { draggableId: step.id, index: idx, children: (provided, snapshot) => (_jsxs("li", { ref: provided.innerRef, ...provided.draggableProps, ...provided.dragHandleProps, style: {
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 marginBottom: 4,

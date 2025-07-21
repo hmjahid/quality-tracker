@@ -10,6 +10,7 @@ import { useSettings } from '../SettingsContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 const STORAGE_KEY = 'workTypes';
 const MainPage = () => {
     const { mandatorySteps } = useSettings();
@@ -99,6 +100,17 @@ const MainPage = () => {
             return { ...w, steps };
         }));
     };
+    const handleCardDragEnd = (result) => {
+        const { source, destination } = result;
+        if (!destination || source.index === destination.index)
+            return;
+        setWorkTypes(prev => {
+            const arr = Array.from(prev);
+            const [removed] = arr.splice(source.index, 1);
+            arr.splice(destination.index, 0, removed);
+            return arr;
+        });
+    };
     if (typeof window.electronAPI === 'undefined') {
         return _jsx(Box, { display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", children: _jsx("span", { style: { color: 'red' }, children: "Error: electronAPI is not available. Please run in Electron." }) });
     }
@@ -113,7 +125,7 @@ const MainPage = () => {
                             else {
                                 setSelectedSteps([]);
                             }
-                        }, sx: { width: 220, mr: 1 }, renderInput: (params) => (_jsx(TextField, { ...params, label: "Default Work Type", variant: "outlined", sx: {
+                        }, sx: { width: 220, mr: 1 }, renderInput: (params) => (_jsx(TextField, { ...params, label: "Default Task Type", variant: "outlined", sx: {
                                 backgroundColor: theme.palette.background.paper,
                                 input: { color: theme.palette.text.primary },
                                 '& .MuiOutlinedInput-root': {
@@ -127,7 +139,7 @@ const MainPage = () => {
                                         borderColor: theme.palette.primary.main,
                                     },
                                 },
-                            } })) }), _jsx(TextField, { value: newTitle, onChange: (e) => setNewTitle(e.target.value), placeholder: "Add new work type", size: "small", variant: "outlined", sx: {
+                            } })) }), _jsx(TextField, { value: newTitle, onChange: (e) => setNewTitle(e.target.value), placeholder: "Add new task", size: "small", variant: "outlined", sx: {
                             mr: 1,
                             backgroundColor: theme.palette.background.paper,
                             input: { color: theme.palette.text.primary },
@@ -142,6 +154,9 @@ const MainPage = () => {
                                     borderColor: theme.palette.primary.main,
                                 },
                             },
-                        } }), _jsx(Button, { variant: "contained", startIcon: _jsx(AddIcon, {}), onClick: handleAddWorkType, children: "Add Work Type" })] }), _jsx(Box, { display: "flex", flexWrap: "wrap", children: workTypes.map(wt => (_jsx(WorkTypeCard, { workType: wt, onEdit: handleEditWorkType, onDelete: handleDeleteWorkType, onStepToggle: handleStepToggle, onStepEdit: handleStepEdit, onStepDelete: handleStepDelete, onAddStep: handleAddStep, onDeadlineChange: handleDeadlineChange, onReorderSteps: handleReorderSteps }, wt.id))) })] }));
+                        } }), _jsx(Button, { variant: "contained", startIcon: _jsx(AddIcon, {}), onClick: handleAddWorkType, children: "Add Task" })] }), _jsx(DragDropContext, { onDragEnd: handleCardDragEnd, children: _jsx(Droppable, { droppableId: "workTypeCards", direction: "horizontal", children: (provided) => (_jsxs(Box, { display: "flex", flexWrap: "wrap", ref: provided.innerRef, ...provided.droppableProps, children: [workTypes.map((wt, idx) => (_jsx(Draggable, { draggableId: wt.id, index: idx, children: (provided, snapshot) => (_jsx("div", { ref: provided.innerRef, ...provided.draggableProps, ...provided.dragHandleProps, style: {
+                                        ...provided.draggableProps.style,
+                                        opacity: snapshot.isDragging ? 0.7 : 1,
+                                    }, children: _jsx(WorkTypeCard, { workType: wt, onEdit: handleEditWorkType, onDelete: handleDeleteWorkType, onStepToggle: handleStepToggle, onStepEdit: handleStepEdit, onStepDelete: handleStepDelete, onAddStep: handleAddStep, onDeadlineChange: handleDeadlineChange, onReorderSteps: handleReorderSteps }) })) }, wt.id))), provided.placeholder] })) }) })] }));
 };
 export default MainPage;

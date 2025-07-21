@@ -1,3 +1,12 @@
+// Add browser fallback for window.electronAPI
+if (typeof window !== 'undefined' && !window.electronAPI) {
+  window.electronAPI = {
+    getStoreValue: async () => null,
+    setStoreValue: async () => {},
+    // Add other methods as needed for browser testing
+  };
+}
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
