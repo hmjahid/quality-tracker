@@ -292,7 +292,7 @@ const SettingsPage = () => {
                                                         {editing[type] ? (
                                                             <Droppable droppableId={`steps-${type}`} type={`STEP-${type}`}>
                                                                 {(provided) => (
-                                                                    <ul ref={provided.innerRef} {...provided.droppableProps} style={{ paddingLeft: 20, listStyle: 'disc', minHeight: 40 }}>
+                                                                    <ul ref={provided.innerRef} {...provided.droppableProps} style={{ paddingLeft: 20, listStyle: 'disc', minHeight: 40, display: 'flex', flexDirection: 'column', gap: 14 }}>
                                                                         {(editing[type] || mandatorySteps[type]).map((step, idx) => (
                                                                             <Draggable key={`${type}-step-${idx}`} draggableId={`${type}-step-${idx}`} index={idx}>
                                                                                 {(provided, snapshot) => (
@@ -307,7 +307,7 @@ const SettingsPage = () => {
                                                                                             borderRadius: 8,
                                                                                             boxShadow: snapshot.isDragging ? '0 2px 8px rgba(25, 118, 210, 0.15)' : '0 1px 3px rgba(0,0,0,0.04)',
                                                                                             padding: '12px 18px',
-                                                                                            fontSize: 18,
+                                                                                            fontSize: 22,
                                                                                             transition: 'background 0.2s, box-shadow 0.2s',
                                                                                             ...provided.draggableProps.style,
                                                                                         }}
@@ -349,9 +349,9 @@ const SettingsPage = () => {
                                                                 )}
                                                             </Droppable>
                                                         ) : (
-                                                            <ul style={{ paddingLeft: 20, listStyle: 'disc' }}>
+                                                            <ul style={{ paddingLeft: 20, listStyle: 'disc', display: 'flex', flexDirection: 'column', gap: 14 }}>
                                                                 {mandatorySteps[type].map((step, idx) => (
-                                                                    <li key={idx}>{step}</li>
+                                                                    <li key={idx} style={{ fontSize: 22 }}>{step}</li>
                                                                 ))}
                                                             </ul>
                                                         )}

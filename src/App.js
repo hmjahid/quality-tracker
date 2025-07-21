@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Navigation from './components/Navigation';
 import MainPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
-import SettingsPage from './pages/SettingsPage';
+import SettingsPage from './pages/SettingsPage.jsx';
 import HelpPage from './pages/HelpPage';
 import { SettingsProvider } from './SettingsContext';
 const App = () => {

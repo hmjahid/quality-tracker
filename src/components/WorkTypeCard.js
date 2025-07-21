@@ -18,7 +18,7 @@ const StepLabel = styled('span')(({ mandatory, theme }) => ({
     color: mandatory ? theme.palette.primary.main : 'inherit',
     marginLeft: 8,
 }));
-const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, onStepDelete, onAddStep, onDeadlineChange, onReorderSteps, }) => {
+const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, onStepDelete, onAddStep, onStartDateChange, onDeadlineChange, onReorderSteps, }) => {
     const [editingTitle, setEditingTitle] = React.useState(false);
     const [title, setTitle] = React.useState(workType.title);
     const [newStep, setNewStep] = React.useState('');
@@ -53,11 +53,11 @@ const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, on
                                 borderColor: theme.palette.primary.main,
                             },
                         },
-                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer', display: 'block', paddingBottom: 16, fontSize: 28, fontWeight: 700 }, children: workType.title })), subheader: _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }, children: [
-            _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Task Start Date:", _jsx(TextField, { type: "date", size: "medium", value: workType.startDate || '', onChange: e => onEdit(workType.id, 'startDate', e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
+                    } })) : (_jsx("span", { onClick: () => setEditingTitle(true), style: { cursor: 'pointer', display: 'block', paddingBottom: 20, fontSize: 32, fontWeight: 700 }, children: workType.title })), subheader: _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }, children: [
+            _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Task Start Date:", _jsx(TextField, { type: "date", size: "medium", value: workType.startDate || '', onChange: e => onStartDateChange(workType.id, e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
                         ml: 1,
-                        fontSize: 16,
-                        input: { color: theme.palette.text.primary, fontSize: 16, fontWeight: 600 },
+                        fontSize: 14,
+                        input: { color: theme.palette.text.primary, fontSize: 14, fontWeight: 600 },
                         backgroundColor: theme.palette.background.paper,
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {
@@ -73,8 +73,8 @@ const WorkTypeCard = ({ workType, onEdit, onDelete, onStepToggle, onStepEdit, on
                     } })] }),
             _jsxs("label", { style: { fontSize: 18, color: theme.palette.text.secondary, fontWeight: 600 }, children: ["Deadline:", _jsx(TextField, { type: "date", size: "medium", value: workType.deadline || '', onChange: e => onDeadlineChange(workType.id, e.target.value), InputLabelProps: { shrink: true }, variant: "outlined", sx: {
                         ml: 1,
-                        fontSize: 16,
-                        input: { color: theme.palette.text.primary, fontSize: 16, fontWeight: 600 },
+                        fontSize: 14,
+                        input: { color: theme.palette.text.primary, fontSize: 14, fontWeight: 600 },
                         backgroundColor: theme.palette.background.paper,
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {

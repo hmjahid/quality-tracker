@@ -17,12 +17,12 @@ const AboutPage = () => {
       <p>LinkedIn: <a href="https://linkedin.com/in/hmjahid/" target="_blank" rel="noopener noreferrer" style={linkStyle}>linkedin.com/in/hmjahid</a></p>
       <p>GitHub: <a href="https://github.com/hmjahid/" target="_blank" rel="noopener noreferrer" style={linkStyle}>github.com/hmjahid</a></p>
       <h3>License (Non-Commercial Use Only)</h3>
-      <pre style={{ whiteSpace: 'pre-wrap', fontSize: 12 }}>
+      <pre style={{ whiteSpace: 'pre-wrap', fontSize: 14, color: '#c62828', fontWeight: 600, background: '#fff3e0', padding: 12, borderRadius: 8, marginTop: 8 }}>
         {`This software is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
 You are free to share and adapt the software for non-commercial purposes, provided that you give appropriate credit.
 
-Commercial use of this software is strictly prohibited without explicit permission from the author.
+COMMERCIAL USE OF THIS SOFTWARE IS STRICTLY PROHIBITED WITHOUT EXPLICIT PERMISSION FROM THE AUTHOR.
 
 For more details, see: https://creativecommons.org/licenses/by-nc/4.0/`}
       </pre>

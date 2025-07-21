@@ -8,29 +8,15 @@ const AboutPage: React.FC = () => (
     <p>Website: <a href="https://hmjahid.netlify.app/" target="_blank" rel="noopener noreferrer">hmjahid.netlify.app</a></p>
     <p>LinkedIn: <a href="https://linkedin.com/in/hmjahid/" target="_blank" rel="noopener noreferrer">linkedin.com/in/hmjahid</a></p>
     <p>GitHub: <a href="https://github.com/hmjahid/" target="_blank" rel="noopener noreferrer">github.com/hmjahid</a></p>
-    <h3>Open Source License</h3>
-    <pre style={{ whiteSpace: 'pre-wrap', fontSize: 12 }}>
-MIT License
+    <h3>License (Non-Commercial Use Only)</h3>
+    <pre style={{ whiteSpace: 'pre-wrap', fontSize: 14, color: '#c62828', fontWeight: 600, background: '#fff3e0', padding: 12, borderRadius: 8, marginTop: 8 }}>
+      {`This software is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
-Copyright (c) {new Date().getFullYear()} Md Jahid Hasan
+You are free to share and adapt the software for non-commercial purposes, provided that you give appropriate credit.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+COMMERCIAL USE OF THIS SOFTWARE IS STRICTLY PROHIBITED WITHOUT EXPLICIT PERMISSION FROM THE AUTHOR.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+For more details, see: https://creativecommons.org/licenses/by-nc/4.0/`}
     </pre>
   </div>
 );

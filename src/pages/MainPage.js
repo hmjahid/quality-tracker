@@ -87,6 +87,9 @@ const MainPage = () => {
             ],
         } : w));
     };
+    const handleStartDateChange = (workTypeId, startDate) => {
+        setWorkTypes(wt => wt.map(w => w.id === workTypeId ? { ...w, startDate } : w));
+    };
     const handleDeadlineChange = (workTypeId, deadline) => {
         setWorkTypes(wt => wt.map(w => w.id === workTypeId ? { ...w, deadline } : w));
     };
@@ -157,6 +160,6 @@ const MainPage = () => {
                         } }), _jsx(Button, { variant: "contained", startIcon: _jsx(AddIcon, {}), onClick: handleAddWorkType, children: "Add Task" })] }), _jsx(DragDropContext, { onDragEnd: handleCardDragEnd, children: _jsx(Droppable, { droppableId: "workTypeCards", direction: "horizontal", children: (provided) => (_jsxs(Box, { display: "flex", flexWrap: "wrap", ref: provided.innerRef, ...provided.droppableProps, children: [workTypes.map((wt, idx) => (_jsx(Draggable, { draggableId: wt.id, index: idx, children: (provided, snapshot) => (_jsx("div", { ref: provided.innerRef, ...provided.draggableProps, ...provided.dragHandleProps, style: {
                                         ...provided.draggableProps.style,
                                         opacity: snapshot.isDragging ? 0.7 : 1,
-                                    }, children: _jsx(WorkTypeCard, { workType: wt, onEdit: handleEditWorkType, onDelete: handleDeleteWorkType, onStepToggle: handleStepToggle, onStepEdit: handleStepEdit, onStepDelete: handleStepDelete, onAddStep: handleAddStep, onDeadlineChange: handleDeadlineChange, onReorderSteps: handleReorderSteps }) })) }, wt.id))), provided.placeholder] })) }) })] }));
+                                    }, children: _jsx(WorkTypeCard, { workType: wt, onEdit: handleEditWorkType, onDelete: handleDeleteWorkType, onStepToggle: handleStepToggle, onStepEdit: handleStepEdit, onStepDelete: handleStepDelete, onAddStep: handleAddStep, onStartDateChange: handleStartDateChange, onDeadlineChange: handleDeadlineChange, onReorderSteps: handleReorderSteps }) })) }, wt.id))), provided.placeholder] })) }) })] }));
 };
 export default MainPage;

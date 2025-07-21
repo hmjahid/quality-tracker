@@ -102,7 +102,7 @@ const WorkTypeCard: React.FC<WorkTypeCardProps> = ({
             variant="outlined"
             sx={{
               mt: 1,
-              input: { color: theme.palette.text.primary },
+              input: { color: theme.palette.text.primary, fontSize: 14 },
               backgroundColor: theme.palette.background.paper,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
