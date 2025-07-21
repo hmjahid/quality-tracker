@@ -4,15 +4,16 @@ QualityTracker Documentation
 Table of Contents
 -----------------
 1. Overview
-2. Prerequisites
-3. Building & Running (All Platforms)
-4. Platform-Specific Build & Installer Output
+2. Project Structure (JS/JSX Only)
+3. Prerequisites
+4. Building & Running (All Platforms)
+5. Platform-Specific Build & Installer Output
    - Linux
    - Windows
    - macOS
-5. Troubleshooting
-6. Advanced Build Options
-7. Contact & License
+6. Troubleshooting
+7. Advanced Build Options
+8. Contact & License
 
 ----------------------------------------
 
@@ -20,7 +21,15 @@ Table of Contents
 -----------
 QualityTracker is a cross-platform desktop app for project and process management. This document provides step-by-step instructions for building and running the app on Linux, Windows, and macOS.
 
-2. Prerequisites
+2. Project Structure (JS/JSX Only)
+----------------------------------
+- **All code is now JavaScript/JSX.**
+- No TypeScript files or dependencies remain.
+- Main renderer code is in `src/` (see App.js, pages/, components/).
+- Electron main process: `src/main.mjs` (ESM) and `src/preload.js`.
+- Renderer entry: `src/renderer.js` (bundled by Vite).
+
+3. Prerequisites
 ----------------
 - Node.js (v18 or newer recommended): https://nodejs.org/
 - npm (comes with Node.js)
@@ -36,7 +45,7 @@ QualityTracker is a cross-platform desktop app for project and process managemen
     - Xcode Command Line Tools: `xcode-select --install`
     - Homebrew (recommended): https://brew.sh/
 
-3. Building & Running (All Platforms)
+4. Building & Running (All Platforms)
 -------------------------------------
 
 ### 1. Clone the Repository
@@ -68,7 +77,7 @@ npm run dist
 ```
 Installers will be created in the `dist/` directory.
 
-4. Platform-Specific Build & Installer Output
+5. Platform-Specific Build & Installer Output
 --------------------------------------------
 
 ### Linux
@@ -91,7 +100,7 @@ Installers will be created in the `dist/` directory.
   - Use electron-builder: `electron-builder --mac` or configure scripts as needed
   - Output: `dist/*.dmg` or `dist/*.zip`
 
-5. Troubleshooting
+6. Troubleshooting
 ------------------
 - **RPM Packaging Error:**
   - If you see `cp: cannot stat 'usr/*': No such file or directory`, try:
@@ -106,7 +115,7 @@ Installers will be created in the `dist/` directory.
 - **Permission Issues:**
   - Use `sudo` if necessary on Linux/macOS, but avoid running npm as root unless required.
 
-6. Advanced Build Options
+7. Advanced Build Options
 ------------------------
 - **Build Only Renderer:**
   - `npx vite build`
@@ -121,7 +130,7 @@ Installers will be created in the `dist/` directory.
 - **Electron Builder:**
   - You can use `electron-builder` directly for more advanced packaging options. See [Electron Builder docs](https://www.electron.build/).
 
-7. Contact & License
+8. Contact & License
 --------------------
 - Developed by Md Jahid Hasan
 - Email: mdjahidhasan919@gmail.com
