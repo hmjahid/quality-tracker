@@ -50,11 +50,24 @@ npx vite build
 npx electron .
 ```
 
+
 ### Build Linux Installers (deb, rpm, AppImage)
 ```bash
 npm run dist
 ```
 Installers will be created in the `dist/` directory. See `documentation.txt` for details on output locations per platform.
+
+### Build Windows Installer (NSIS .exe)
+```bash
+npm run dist:win
+```
+The Windows installer (.exe) will be created in the `dist/` directory. See `documentation.txt` for details.
+
+### Build macOS Installer (.dmg)
+```bash
+npm run dist:mac
+```
+The macOS installer (.dmg) will be created in the `dist/` directory. See `documentation.txt` for details.
 
 ---
 
