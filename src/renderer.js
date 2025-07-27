@@ -1,3 +1,4 @@
+
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // Add browser fallback for window.electronAPI
 if (typeof window !== 'undefined' && !window.electronAPI) {
@@ -11,7 +12,8 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { ThemeModeProvider } from './ThemeContext';
+import { SettingsProvider } from './SettingsContext';
 import CssBaseline from '@mui/material/CssBaseline';
 console.log("Renderer entry loaded");
 const root = createRoot(document.getElementById('root'));
-root.render(_jsxs(ThemeModeProvider, { children: [_jsx(CssBaseline, {}), _jsx(App, {})] }));
+root.render(_jsx(SettingsProvider, { children: _jsxs(ThemeModeProvider, { children: [_jsx(CssBaseline, {}), _jsx(App, {})] }) }));

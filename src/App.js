@@ -5,7 +5,7 @@ import MainPage from './pages/MainPage';
 import AboutPage from './pages/AboutPage';
 import SettingsPage from './pages/SettingsPage.jsx';
 import HelpPage from './pages/HelpPage';
-import { SettingsProvider } from './SettingsContext';
+
 const App = () => {
     const [currentPage, setCurrentPage] = useState('main');
     let content;
@@ -25,7 +25,7 @@ const App = () => {
         default:
             content = null;
     }
-    return (_jsx(SettingsProvider, { children: _jsxs("div", { style: { display: 'flex', height: '100vh', marginLeft: '15%', minHeight: 0, boxSizing: 'border-box' }, children: [_jsx(Navigation, { currentPage: currentPage, onNavigate: setCurrentPage }), _jsx("main", { style: {
+    return (_jsxs("div", { style: { display: 'flex', height: '100vh', marginLeft: '15%', minHeight: 0, boxSizing: 'border-box' }, children: [_jsx(Navigation, { currentPage: currentPage, onNavigate: setCurrentPage }), _jsx("main", { style: {
                         flex: 1,
                         display: 'flex',
                         flexDirection: 'column',
@@ -37,6 +37,6 @@ const App = () => {
                         margin: '0 auto',
                         justifyContent: 'center',
                         alignItems: 'center',
-                    }, children: _jsx("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0, width: '100%' }, children: content }) })] }) }));
+                    }, children: _jsx("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0, width: '100%' }, children: content }) })] }));
 };
 export default App;

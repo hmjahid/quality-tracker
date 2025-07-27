@@ -6,7 +6,8 @@
   "type": "module",
   "main": "src/main.mjs",
   "scripts": {
-    "build": "npm run postbuild:renderer",
+    "build": "vite build && npm run postbuild:renderer",
+    "vite:build": "vite build",
     "postbuild:renderer": "copyfiles -u 1 src/preload.js dist/",
     "package": "electron-forge package",
     "make": "electron-forge make",

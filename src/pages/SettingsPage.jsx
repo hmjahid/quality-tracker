@@ -30,14 +30,33 @@ const SettingsPage = () => {
   const [workTypeOrder, setWorkTypeOrder] = useState([]);
   const theme = useTheme();
 
+  // Add a loading state check
+  if (!mandatorySteps) {
+    return <div>Loading settings...</div>;
+  }
+
   useEffect(() => {
     (async () => {
-      const savedOrder = await window.electronAPI.getStoreValue(CARD_ORDER_KEY);
-      if (savedOrder && Array.isArray(savedOrder)) {
-        setWorkTypeOrder(savedOrder);
-      } else {
-        setWorkTypeOrder(Object.keys(mandatorySteps));
+      // Ensure mandatorySteps is a valid object before proceeding
+      if (!mandatorySteps || typeof mandatorySteps !== 'object' || Array.isArray(mandatorySteps)) {
+        console.warn("mandatorySteps is not a valid object, skipping workTypeOrder initialization.");
+        setWorkTypeOrder([]); // Ensure workTypeOrder is an empty array if mandatorySteps is invalid
+        return;
       }
+
+      const savedOrder = await window.electronAPI.getStoreValue(CARD_ORDER_KEY);
+      const currentMandatoryStepsKeys = Object.keys(mandatorySteps);
+
+      let initialOrder = [];
+      if (savedOrder && Array.isArray(savedOrder)) {
+        initialOrder = savedOrder.filter(type => currentMandatoryStepsKeys.includes(type));
+      }
+
+      const newTypes = currentMandatoryStepsKeys.filter(type => !initialOrder.includes(type));
+      initialOrder = [...initialOrder, ...newTypes];
+
+      setWorkTypeOrder(initialOrder);
+      window.electronAPI.setStoreValue(CARD_ORDER_KEY, initialOrder);
     })();
   }, [mandatorySteps]);
 
@@ -96,6 +115,7 @@ const SettingsPage = () => {
     const type = newType.trim();
     if (!type || mandatorySteps[type]) return;
     updateStepsForType(type, []);
+    saveCardOrder([...workTypeOrder, type]); // Add the new type to the end
     setNewType('');
     setSnackbarOpen(true);
   };
@@ -115,6 +135,7 @@ const SettingsPage = () => {
     const updated = { ...mandatorySteps };
     delete updated[type];
     setMandatorySteps(updated);
+    saveCardOrder(workTypeOrder.filter(t => t !== type)); // Remove the deleted type
   };
 
   const handleExport = async () => {
@@ -193,7 +214,7 @@ const SettingsPage = () => {
           <Droppable droppableId="workTypeCards" direction="horizontal" type="CARD">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps} style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start', minHeight: 350 }}>
-                {workTypeOrder.map((type, idx) => (
+                {workTypeOrder && workTypeOrder.map((type, idx) => (
                   <Draggable key={type} draggableId={type} index={idx}>
                     {(provided, snapshot) => (
                       <div
@@ -242,7 +263,7 @@ const SettingsPage = () => {
                               <Droppable droppableId={`steps-${type}`} type={`STEP-${type}`}>
                                 {(provided) => (
                                   <ul ref={provided.innerRef} {...provided.droppableProps} style={{ paddingLeft: 20, listStyle: 'disc', minHeight: 40, display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                    {(editing[type] || mandatorySteps[type]).map((step, idx) => (
+                                    {(editing[type] ?? mandatorySteps[type] ?? []).map((step, idx) => (
                                       <Draggable key={`${type}-step-${idx}`} draggableId={`${type}-step-${idx}`} index={idx}>
                                         {(provided, snapshot) => (
                                           <li
@@ -263,7 +284,7 @@ const SettingsPage = () => {
                                             onMouseEnter={e => (e.currentTarget.style.background = '#e3f2fd')}
                                             onMouseLeave={e => (e.currentTarget.style.background = snapshot.isDragging ? '#e3f2fd' : theme.palette.mode === 'dark' ? '#23272f' : '#f5f7fa')}
                                           >
-                                            <span {...provided.dragHandleProps} style={{ cursor: 'grab', marginRight: 8, display: 'flex', alignItems: 'center', color: '#1976d2', background: '#e3f2fd', borderRadius: 4, padding: 2 }}>
+                                            <span {...provided.dragHandleProps} style={{ cursor: 'grab', marginRight: 8, display: 'flex', alignItems: 'center', color: 'rgb(25, 118, 210)', background: '#e3f2fd', borderRadius: 4, padding: 2 }}>
                                               <DragIndicatorIcon fontSize="small" />
                                             </span>
                                             <TextField
@@ -293,7 +314,7 @@ const SettingsPage = () => {
                               </Droppable>
                             ) : (
                               <ul style={{ paddingLeft: 20, listStyle: 'disc', display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                {mandatorySteps[type].map((step, idx) => (
+                                {(mandatorySteps[type] ?? []).map((step, idx) => (
                                   <li key={idx} style={{ fontSize: 18 }}>{step}</li>
                                 ))}
                               </ul>
@@ -337,7 +358,6 @@ const SettingsPage = () => {
                     )}
                   </Draggable>
                 ))}
-                {provided.placeholder}
               </div>
             )}
           </Droppable>

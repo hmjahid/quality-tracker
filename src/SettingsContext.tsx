@@ -34,7 +34,7 @@ const defaultNotification: NotificationSettings = {
 const defaultFontSize: FontSize = 'medium';
 
 const SettingsContext = createContext<SettingsContextProps>({
-  mandatorySteps: DEFAULT_MANDATORY_STEPS,
+  mandatorySteps: DEFAULT_MANDATORY_STEPS || {},
   setMandatorySteps: () => {},
   updateStepsForType: () => {},
   notification: defaultNotification,
@@ -46,21 +46,23 @@ const SettingsContext = createContext<SettingsContextProps>({
 export const useSettings = () => useContext(SettingsContext);
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("SettingsProvider mounted");
-  const [mandatorySteps, setMandatorySteps] = useState<MandatoryStepsConfig>(DEFAULT_MANDATORY_STEPS);
-  const [notification, setNotification] = useState<NotificationSettings>(defaultNotification);
-  const [fontSize, setFontSize] = useState<FontSize>(defaultFontSize);
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const ms = await window.electronAPI.getStoreValue('mandatorySteps');
-      const notif = await window.electronAPI.getStoreValue('notification');
-      const fs = await window.electronAPI.getStoreValue('fontSize');
-      setMandatorySteps(ms || DEFAULT_MANDATORY_STEPS);
-      setNotification(notif || defaultNotification);
-      setFontSize(fs || defaultFontSize);
-      setInitialized(true);
+      try {
+        const ms = await window.electronAPI.getStoreValue('mandatorySteps');
+        const notif = await window.electronAPI.getStoreValue('notification');
+        const fs = await window.electronAPI.getStoreValue('fontSize');
+
+          const [mandatorySteps, setMandatorySteps] = useState<MandatoryStepsConfig>(DEFAULT_MANDATORY_STEPS || {});
+        setNotification(notif || defaultNotification);
+        setFontSize(fs || defaultFontSize);
+      } catch (error) {
+        console.error("Error loading settings from Electron store:", error);
+      } finally {
+        setInitialized(true);
+      }
     })();
   }, []);
 
